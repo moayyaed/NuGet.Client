@@ -396,7 +396,12 @@
         MinHeight="22"
         AutomationProperties.Name="{x:Static local:Resources.Label_Version}"
         ItemsSource="{Binding Path=Versions}"
-        SelectedItem="{Binding Path=SelectedVersion}">
+        IsEditable="True"
+        StaysOpenOnEdit="True"
+        IsTextSearchEnabled="False"
+        GotFocus="OpenComboBox"
+        Text="{Binding UserInput}"
+        SelectedValue="{Binding Path=SelectedVersion}">
 
         <ComboBox.ItemContainerStyle>
             <Style TargetType="{x:Type ComboBoxItem}" BasedOn="{StaticResource ComboBoxItemStyle}"> 

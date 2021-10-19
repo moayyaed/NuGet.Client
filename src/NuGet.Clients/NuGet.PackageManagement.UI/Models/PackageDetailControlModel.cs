@@ -201,7 +201,6 @@ namespace NuGet.PackageManagement.UI
 
             SelectVersion();
 
-            OnPropertyChanged(nameof(SelectedVersion));
             OnPropertyChanged(nameof(Versions));
 
             return Task.CompletedTask;

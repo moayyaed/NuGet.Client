@@ -11,6 +11,7 @@ using Microsoft;
 using Microsoft.ServiceHub.Framework;
 using Microsoft.VisualStudio.Shell;
 using NuGet.PackageManagement.VisualStudio;
+using NuGet.Packaging.Core;
 using NuGet.ProjectModel;
 using NuGet.Versioning;
 using NuGet.VisualStudio;
@@ -202,6 +203,10 @@ namespace NuGet.PackageManagement.UI
             }
 
             _versions = new List<DisplayVersion>();
+            var installedDependencies = InstalledPackageDependencies.Where(p =>
+                StringComparer.OrdinalIgnoreCase.Equals(p.Id, Id) && p.VersionRange != null && p.VersionRange.HasLowerBound)
+                .OrderByDescending(p => p.VersionRange.MinVersion);
+
             List<(NuGetVersion version, bool isDeprecated)> allVersions = _allPackageVersions?.Where(v => v.version != null).OrderByDescending(v => v.version).ToList();
 
             // null, if no version constraint defined in package.config
@@ -220,6 +225,31 @@ namespace NuGet.PackageManagement.UI
             // get latest prerelease or stable based on allowed versions
             var latestPrerelease = allVersionsAllowed.FirstOrDefault(v => v.version.IsPrerelease);
             var latestStableVersion = allVersionsAllowed.FirstOrDefault(v => !v.version.IsPrerelease);
+
+            foreach (IProjectContextInfo project in _nugetProjects)
+            {
+                if (project.ProjectStyle.Equals(ProjectModel.ProjectStyle.PackageReference) && installedDependencies != null)
+                {
+                    foreach (PackageDependency installedDependency in installedDependencies)
+                    {
+                        VersionRange installedVersionRange = VersionRange.Parse(installedDependency?.VersionRange?.OriginalString, true);
+                        NuGetVersion bestVersion = installedVersionRange.FindBestMatch(allVersionsAllowed.Select(v => v.version));
+                        var displayVersion = new DisplayVersion(installedVersionRange, bestVersion, additionalInfo: null);
+
+                        if (!_versions.Contains(displayVersion))
+                        {
+                            _versions.Add(new DisplayVersion(installedVersionRange, bestVersion, additionalInfo: null));
+                        }
+                    }
+                }
+                else if (installedDependencies != null)
+                {
+                    foreach (PackageDependency installedDependency in installedDependencies)
+                    {
+                        _versions.Add(new DisplayVersion(VersionRange.Parse(installedDependency?.VersionRange?.OriginalString, false), additionalInfo: null));
+                    }
+                }
+            }
 
             if (latestPrerelease.version != null
                 && (latestStableVersion.version == null || latestPrerelease.version > latestStableVersion.version))

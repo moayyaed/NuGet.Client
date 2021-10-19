@@ -142,7 +142,6 @@ namespace NuGet.PackageManagement.UI
                             if (isBestOption)
                             {
                                 _versions.SelectedValue = new DisplayVersion(userRequestedVersionRange, rangeBestVersion, additionalInfo: null);
-                                _versions.SelectedIndex = -1;
                                 _versions.Text = ComboboxText;
                                 EditableTextBox.SelectionStart = 0;
                                 EditableTextBox.SelectionLength = int.MaxValue;
@@ -152,6 +151,7 @@ namespace NuGet.PackageManagement.UI
                                 break;
                             }
                         }
+
                         _versions.SelectedValue = _versions.Items[_versions.SelectedIndex];
                         _versions.Text = _versions.SelectedValue.ToString();
                         EditableTextBox.SelectionStart = 0;
@@ -186,6 +186,7 @@ namespace NuGet.PackageManagement.UI
                 case Key.Left:
                 case Key.Right:
                     base.OnKeyUp(e);
+                    e.Handled = true;
                     break;
                 default:
                     if (PreviousFilter != ComboboxText)
