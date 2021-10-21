@@ -193,6 +193,39 @@ namespace NuGet.PackageManagement.UI
                 }
             }
 
+
+            // Testing
+            VersionRange test1 = VersionRange.Parse("9.*", true);
+            VersionRange test2 = VersionRange.Parse("*", true);
+            VersionRange test3 = VersionRange.Parse("(1.*,12.0)", true);
+            VersionRange test4 = VersionRange.Parse("[1,9)", true);
+
+            NuGetVersion bestVersion1 = test1.FindBestMatch(allVersionsAllowed.Select(v => v.version));
+            NuGetVersion bestVersion2 = test2.FindBestMatch(allVersionsAllowed.Select(v => v.version));
+            NuGetVersion bestVersion3 = test3.FindBestMatch(allVersionsAllowed.Select(v => v.version));
+            NuGetVersion bestVersion4 = test4.FindBestMatch(allVersionsAllowed.Select(v => v.version));
+
+
+            if (test1 != null && bestVersion1 != null)
+            {
+                _versions.Add(new DisplayVersion(test1, bestVersion1, additionalInfo: string.Empty));
+            }
+
+            if (test2 != null && bestVersion2 != null)
+            {
+                _versions.Add(new DisplayVersion(test2, bestVersion2, additionalInfo: string.Empty));
+            }
+
+            if (test3 != null && bestVersion3 != null)
+            {
+                _versions.Add(new DisplayVersion(test3, bestVersion3, additionalInfo: string.Empty));
+            }
+
+            if (test4 != null && bestVersion4 != null)
+            {
+                _versions.Add(new DisplayVersion(test4, bestVersion4, additionalInfo: string.Empty));
+            }
+
             // Disable controls if this is an auto referenced package.
             SetAutoReferencedCheck(InstalledVersion);
 

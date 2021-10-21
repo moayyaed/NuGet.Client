@@ -534,20 +534,6 @@ namespace NuGet.PackageManagement.UI
         }
 
         public virtual void OnSelectedVersionChanged() { }
-        private string _userInput;
-
-        public string UserInput
-        {
-            get
-            {
-                return _userInput;
-            }
-            set
-            {
-                _userInput = value;
-                OnPropertyChanged(nameof(UserInput));
-            }
-        }
 
         private DisplayVersion _selectedVersion;
 
@@ -628,39 +614,9 @@ namespace NuGet.PackageManagement.UI
             }
         }
 
-        private bool _isEnableInstallButton;
-        public bool EnableInstallButton
-        {
-            get { return _isEnableInstallButton; }
-            set
-            {
-                if (SelectedVersion.IsCurrentInstalled)
-                {
-                    _isEnableInstallButton = value;
-                }
-                OnPropertyChanged(nameof(EnableInstallButton));
-            }
-        }
-
-        private bool _isInputValid;
-        public bool IsInputValid
-        {
-            get { return _isInputValid; }
-            set
-            {
-                if (SelectedVersion.IsCurrentInstalled)
-                {
-                    _isInputValid = value;
-                }
-                OnPropertyChanged(nameof(IsInputValid));
-            }
-        }
-
         // Calculate the version to select among _versions and select it
         protected void SelectVersion()
         {
-            var b = !_versions.Contains(SelectedVersion);
-
             if (_versions.Count == 0)
             {
                 SelectedVersion = null;
@@ -680,9 +636,8 @@ namespace NuGet.PackageManagement.UI
                 // Otherwise, select the first version in the version list.
                 var possibleVersions = _versions.Where(v => v != null);
                 SelectedVersion =
-                    possibleVersions.FirstOrDefault(v => v.Version.Equals(_searchResultPackage.AllowedVersions.ToString()))
+                    possibleVersions.FirstOrDefault(v => v.Version.Equals(_searchResultPackage.InstalledVersion))
                     ?? possibleVersions.FirstOrDefault(v => v.IsValidVersion);
-                UserInput = SelectedVersion.ToString();
             }
         }
 
