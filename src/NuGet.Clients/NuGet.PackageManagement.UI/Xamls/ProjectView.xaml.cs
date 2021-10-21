@@ -2,15 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Input;
-using NuGet.Versioning;
 
 namespace NuGet.PackageManagement.UI
 {
@@ -53,7 +47,7 @@ namespace NuGet.PackageManagement.UI
         {
             if (InstallButtonClicked != null)
             {
-                InstallButtonClicked?.Invoke(this, EventArgs.Empty);
+                InstallButtonClicked(this, EventArgs.Empty);
             }
 
         }
