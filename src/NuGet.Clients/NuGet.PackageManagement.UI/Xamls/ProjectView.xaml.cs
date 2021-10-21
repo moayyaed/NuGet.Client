@@ -49,7 +49,6 @@ namespace NuGet.PackageManagement.UI
             {
                 InstallButtonClicked(this, EventArgs.Empty);
             }
-
         }
     }
 }
