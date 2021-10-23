@@ -1,2 +1,3 @@
+NuGet.ContentModel.ContentItemCollection.PopulateItemGroups(NuGet.ContentModel.PatternSet definition, System.Collections.Generic.IList<NuGet.ContentModel.ContentItemGroup> contentItemGroupList) -> void
 override NuGet.Packaging.PackageArchiveReader.CopyNupkgAsync(string nupkgFilePath, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<string>
 static NuGet.Packaging.Licenses.NuGetLicenseData.LicenseListVersion.get -> string
