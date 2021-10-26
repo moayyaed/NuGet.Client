@@ -36,6 +36,7 @@ namespace NuGet.PackageManagement.UI
         {
             // Set InstalledVersion before fetching versions list.
             InstalledVersion = searchResultPackage.InstalledVersion;
+            InstalledVersionRange = searchResultPackage.AllowedVersions;
 
             await base.SetCurrentPackageAsync(searchResultPackage, filter, getPackageItemViewModel);
 
@@ -46,7 +47,8 @@ namespace NuGet.PackageManagement.UI
                 return;
             }
             InstalledVersion = searchResultPackage.InstalledVersion;
-            SelectedVersion.IsCurrentInstalled = InstalledVersion == SelectedVersion.Version;
+            InstalledVersionRange = searchResultPackage.AllowedVersions;
+            SelectedVersion.IsCurrentInstalled = InstalledVersion == SelectedVersion.Version && InstalledVersionRange == SelectedVersion.Range;
         }
 
         public override bool IsSolution
@@ -71,6 +73,7 @@ namespace NuGet.PackageManagement.UI
             if (dependency != null)
             {
                 InstalledVersion = dependency.VersionRange.MinVersion;
+                InstalledVersionRange = dependency.VersionRange;
             }
             else
             {
@@ -140,6 +143,20 @@ namespace NuGet.PackageManagement.UI
             var latestPrerelease = allVersionsAllowed.FirstOrDefault(v => v.version.IsPrerelease);
             var latestStableVersion = allVersionsAllowed.FirstOrDefault(v => !v.version.IsPrerelease);
 
+            foreach (IProjectContextInfo project in _nugetProjects)
+            {
+                if (project.ProjectStyle.Equals(ProjectModel.ProjectStyle.PackageReference) && installedDependency != null)
+                {
+                    VersionRange installedVersionRange = VersionRange.Parse(installedDependency?.VersionRange?.OriginalString, true);
+                    NuGetVersion bestVersion = installedVersionRange.FindBestMatch(allVersionsAllowed.Select(v => v.version));
+                    _versions.Add(new DisplayVersion(installedVersionRange, bestVersion, additionalInfo: null));
+                }
+                else if (installedDependency != null)
+                {
+                    _versions.Add(new DisplayVersion(installedDependency?.VersionRange?.MinVersion, additionalInfo: null));
+                }
+            }
+
             // Add latest prerelease if neeeded
             if (latestPrerelease.version != null
                 && (latestStableVersion.version == null || latestPrerelease.version > latestStableVersion.version) &&
@@ -202,10 +219,23 @@ namespace NuGet.PackageManagement.UI
             }
         }
 
+        private VersionRange _installedVersionRange;
+        public VersionRange InstalledVersionRange
+        {
+            get { return _installedVersionRange; }
+            private set
+            {
+                _installedVersionRange = value;
+                OnPropertyChanged(nameof(InstalledVersionRange));
+                OnPropertyChanged(nameof(IsSelectedVersionInstalled));
+            }
+        }
+
         public override void OnSelectedVersionChanged()
         {
             base.OnSelectedVersionChanged();
             OnPropertyChanged(nameof(IsSelectedVersionInstalled));
+            OnPropertyChanged(nameof(IsAvailableForInstall));
         }
 
         public bool IsSelectedVersionInstalled
@@ -214,7 +244,16 @@ namespace NuGet.PackageManagement.UI
             {
                 return SelectedVersion != null
                     && InstalledVersion != null
+                    && SelectedVersion?.Range.OriginalString == InstalledVersionRange.OriginalString
                     && SelectedVersion.Version == InstalledVersion;
+            }
+        }
+
+        public bool IsAvailableForInstall
+        {
+            get
+            {
+                return SelectedVersion == null || IsSelectedVersionInstalled;
             }
         }
 
