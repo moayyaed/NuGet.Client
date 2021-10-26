@@ -66,7 +66,7 @@ namespace NuGet.PackageManagement
             IReadOnlyList<NuGetProjectAction> originalActions,
             BuildIntegratedInstallationContext installationContext,
             VersionRange versionRange)
-            : base(packageIdentity, nuGetProjectActionType, project, null, versionRange)
+            : base(packageIdentity, nuGetProjectActionType, project, sourceRepository: null, versionRange)
         {
             if (packageIdentity == null)
             {

@@ -450,8 +450,8 @@ namespace NuGet.PackageManagement.VisualStudio
                     resolutionContext,
                     projectContext,
                     sourceRepositories,
-                    cancellationToken,
-                    versionRange);
+                    versionRange,
+                    cancellationToken);
 
                 var projectActions = new List<ProjectAction>();
 

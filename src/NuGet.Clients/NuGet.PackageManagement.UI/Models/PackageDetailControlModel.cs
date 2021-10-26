@@ -146,11 +146,14 @@ namespace NuGet.PackageManagement.UI
                 {
                     VersionRange installedVersionRange = VersionRange.Parse(installedDependency?.VersionRange?.OriginalString, true);
                     NuGetVersion bestVersion = installedVersionRange.FindBestMatch(allVersionsAllowed.Select(v => v.version));
-                    _versions.Add(new DisplayVersion(installedVersionRange, bestVersion, additionalInfo: null));
+                    DisplayVersion displayVersion = new DisplayVersion(installedVersionRange, bestVersion, additionalInfo: null);
+                    _versions.Add(displayVersion);
                 }
                 else if (installedDependency != null)
                 {
-                    _versions.Add(new DisplayVersion(VersionRange.Parse(installedDependency?.VersionRange?.OriginalString, false), additionalInfo: null));
+                    VersionRange installedVersionRange = VersionRange.Parse(installedDependency?.VersionRange?.OriginalString, false);
+                    DisplayVersion displayVersion = new DisplayVersion(installedVersionRange, additionalInfo: null);
+                    _versions.Add(displayVersion);
                 }
             }
 
