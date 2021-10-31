@@ -9,6 +9,7 @@
     <AssemblyOriginatorKeyFile>ToolTestKey.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
     <Description>A utility for generating test packages for end-to-end and Apex tests.</Description>
+    <EnableNETAnalyzers>false</EnableNETAnalyzers>
   </PropertyGroup>
 
   <ItemGroup>

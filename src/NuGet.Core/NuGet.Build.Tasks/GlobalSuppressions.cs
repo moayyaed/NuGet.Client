@@ -74,3 +74,23 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Build", "CA1819:Properties should not return arrays", Justification = "<Pending>", Scope = "member", Target = "~P:NuGet.Build.Tasks.WarnForInvalidProjectsTask.ValidProjects")]
 [assembly: SuppressMessage("Build", "CA1819:Properties should not return arrays", Justification = "<Pending>", Scope = "member", Target = "~P:NuGet.Build.Tasks.WriteRestoreGraphTask.RestoreGraphItems")]
 [assembly: SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification = "<Pending>", Scope = "member", Target = "~M:NuGet.Build.Tasks.GetReferenceNearestTargetFrameworkTask.TryParseFramework(System.String,System.String,System.String,NuGet.Build.MSBuildLogger,NuGet.Frameworks.NuGetFramework@)~System.Boolean")]
+
+/* Unmerged change from project 'NuGet.Build.Tasks (netcoreapp5.0)'
+Added:
+[assembly: SuppressMessage("Performance", "CA1825:Avoid zero-length array allocations", Justification = "<Pending>", Scope = "member", Target = "~M:NuGet.Build.MSBuildUtility.WrapMSBuildItem(System.Collections.Generic.IEnumerable{Microsoft.Build.Framework.ITaskItem})~NuGet.Commands.IMSBuildItem[]")]
+[assembly: SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>", Scope = "member", Target = "~M:NuGet.Build.Tasks.GenerateRestoreGraphFileTask.Execute~System.Boolean")]
+[assembly: SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:NuGet.Build.Tasks.RestoreSettingsUtils.GetValue``1(System.Func{``0}[])~``0")]
+*/
+
+/* Unmerged change from project 'NuGet.Build.Tasks (netstandard2.0)'
+Added:
+[assembly: SuppressMessage("Performance", "CA1825:Avoid zero-length array allocations", Justification = "<Pending>", Scope = "member", Target = "~M:NuGet.Build.MSBuildUtility.WrapMSBuildItem(System.Collections.Generic.IEnumerable{Microsoft.Build.Framework.ITaskItem})~NuGet.Commands.IMSBuildItem[]")]
+[assembly: SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>", Scope = "member", Target = "~M:NuGet.Build.Tasks.GenerateRestoreGraphFileTask.Execute~System.Boolean")]
+[assembly: SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:NuGet.Build.Tasks.RestoreSettingsUtils.GetValue``1(System.Func{``0}[])~``0")]
+*/
+[assembly: SuppressMessage("Performance", "CA1825:Avoid zero-length array allocations", Justification = "<Pending>", Scope = "member", Target = "~M:NuGet.Build.MSBuildUtility.WrapMSBuildItem(System.Collections.Generic.IEnumerable{Microsoft.Build.Framework.ITaskItem})~NuGet.Commands.IMSBuildItem[]")]
+[assembly: SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>", Scope = "member", Target = "~M:NuGet.Build.Tasks.GenerateRestoreGraphFileTask.Execute~System.Boolean")]
+[assembly: SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>", Scope = "member", Target = "~M:NuGet.Build.Tasks.GenerateRestoreGraphFileTask.GetGlobalProperties~System.Collections.Generic.Dictionary{System.String,System.String}")]
+[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:NuGet.Build.Tasks.GenerateRestoreGraphFileTask.GetProcessFileName(System.String)~System.String")]
+[assembly: SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:NuGet.Build.Tasks.RestoreSettingsUtils.GetValue``1(System.Func{``0}[])~``0")]
+[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:NuGet.Build.Tasks.RestoreTaskEx.GetProcessFileName(System.String)~System.String")]

@@ -132,7 +132,9 @@ namespace NuGet.CommandLine.Test
                 "desc of {0} {1}",
                 packageId, version);
 
+#pragma warning disable CA1062 // Validate arguments of public methods
             foreach (var framework in frameworks)
+#pragma warning restore CA1062 // Validate arguments of public methods
             {
                 var libPath = string.Format(
                     CultureInfo.InvariantCulture,
@@ -144,7 +146,9 @@ namespace NuGet.CommandLine.Test
 
             packageBuilder.Authors.Add("test author");
 
+#pragma warning disable CA1062 // Validate arguments of public methods
             foreach (var group in dependencies)
+#pragma warning restore CA1062 // Validate arguments of public methods
             {
                 var set = new PackageDependencySet(
                     null,
@@ -155,7 +159,9 @@ namespace NuGet.CommandLine.Test
                 packageBuilder.DependencySets.Add(set);
             }
 
+#pragma warning disable CA1305 // Specify IFormatProvider
             var packageFileName = string.Format("{0}.{1}.nupkg", packageId, version);
+#pragma warning restore CA1305 // Specify IFormatProvider
             var packageFileFullPath = Path.Combine(path, packageFileName);
 
             Directory.CreateDirectory(path);
@@ -183,7 +189,9 @@ namespace NuGet.CommandLine.Test
                 CultureInfo.InvariantCulture,
                 "desc of {0} {1}",
                 packageId, version);
+#pragma warning disable CA1062 // Validate arguments of public methods
             foreach (var framework in frameworks)
+#pragma warning restore CA1062 // Validate arguments of public methods
             {
                 var libPath = string.Format(
                     CultureInfo.InvariantCulture,
@@ -194,7 +202,9 @@ namespace NuGet.CommandLine.Test
                 packageBuilder.Files.Add(CreatePackageFile(libPath));
             }
 
+#pragma warning disable CA1062 // Validate arguments of public methods
             foreach (var contentFile in contentFiles)
+#pragma warning restore CA1062 // Validate arguments of public methods
             {
                 var packageFilePath = Path.Combine("content", contentFile);
                 var packageFile = CreatePackageFile(packageFilePath);
@@ -203,7 +213,9 @@ namespace NuGet.CommandLine.Test
 
             packageBuilder.Authors.Add("test author");
 
+#pragma warning disable CA1305 // Specify IFormatProvider
             var packageFileName = string.Format("{0}.{1}.nupkg", packageId, version);
+#pragma warning restore CA1305 // Specify IFormatProvider
             var packageFileFullPath = Path.Combine(path, packageFileName);
             using (var fileStream = File.Create(packageFileFullPath))
             {
