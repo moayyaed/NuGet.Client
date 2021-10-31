@@ -1,0 +1,19 @@
+# NuGet code analysis rules for test projects
+
+# Code files
+[*.{cs,vb}]
+
+dotnet_diagnostic.VSTHRD001.severity = none
+dotnet_diagnostic.VSTHRD002.severity = none
+dotnet_diagnostic.VSTHRD003.severity = none
+dotnet_diagnostic.VSTHRD010.severity = none
+dotnet_diagnostic.VSTHRD011.severity = none
+dotnet_diagnostic.VSTHRD012.severity = none
+dotnet_diagnostic.VSTHRD100.severity = none
+dotnet_diagnostic.VSTHRD101.severity = none
+dotnet_diagnostic.VSTHRD102.severity = none
+dotnet_diagnostic.VSTHRD103.severity = none
+dotnet_diagnostic.VSTHRD104.severity = none
+dotnet_diagnostic.VSTHRD105.severity = none
+dotnet_diagnostic.VSTHRD106.severity = none
+dotnet_diagnostic.VSTHRD200.severity = none

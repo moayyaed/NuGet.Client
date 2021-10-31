@@ -58,6 +58,7 @@
     <NoWarn>$(NoWarn);NU5105;MSB3277</NoWarn>
     <!-- additional warnings new in .NET 6 that we need to disable when building with source-build -->
     <NoWarn Condition="'$(DotNetBuildFromSource)' == 'true'">$(NoWarn);CS1998;CA1416;CS0618;CS1574</NoWarn>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
   </PropertyGroup>
 
   <!-- Defaults -->
@@ -112,7 +113,6 @@
   <PropertyGroup>
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
     <VsixOutputDirName>VS15</VsixOutputDirName>
-    <CodeAnalysisRuleSet Condition="'$(CodeAnalysisRuleSet)' == ''">$(BuildCommonDirectory)NuGet.ruleset</CodeAnalysisRuleSet>
     <EnforceCodeStyleInBuild Condition=" '$(EnforceCodeStyleInBuild)' != '' " >true</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
@@ -216,7 +216,6 @@
   <!-- Add symbols to the dll for test dlls -->
   <PropertyGroup Condition=" '$(TestProject)' == 'true' ">
     <DebugType>full</DebugType>
-    <CodeAnalysisRuleSet>$(BuildCommonDirectory)NuGet.Tests.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <!-- The project that builds the VSIX -->
@@ -290,10 +289,6 @@
 
     <!-- FxCop Analyzers -->
   <ItemGroup Condition="'$(Shipping)' == 'true' AND '$(SkipAnalyzers)' != 'true' AND '$(IsBuildOnlyXPLATProjects)' != 'true'">
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
